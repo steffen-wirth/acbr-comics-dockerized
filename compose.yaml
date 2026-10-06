@@ -2,6 +2,7 @@ services:
   acbr:
     build:
       context: .
+      network: host
       args:
         ACBR_VERSION: ${ACBR_VERSION:-3.25.2}
     image: acbr-comic-book-reader:${ACBR_VERSION:-3.25.2}
