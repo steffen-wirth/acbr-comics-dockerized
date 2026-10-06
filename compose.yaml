@@ -1,0 +1,26 @@
+services:
+  acbr:
+    build:
+      context: .
+      args:
+        ACBR_VERSION: ${ACBR_VERSION:-3.25.2}
+    image: acbr-comic-book-reader:${ACBR_VERSION:-3.25.2}
+    container_name: acbr
+    restart: unless-stopped
+    ports:
+      - "${WEB_PORT:-3000}:3000"   # http
+      - "${WEB_PORT_HTTPS:-3001}:3001"   # https
+    environment:
+      PUID: ${PUID:-1000}
+      PGID: ${PGID:-1000}
+      TZ: ${TZ:-Europe/Berlin}
+      TITLE: ACBR
+      CUSTOM_USER: ${CUSTOM_USER:-acbr}
+      PASSWORD: ${PASSWORD:?set PASSWORD in .env}
+    shm_size: 1gb
+    volumes:
+      - acbr_config:/config
+      - ${COMICS_PATH:-./comics}:/comics:ro
+
+volumes:
+  acbr_config:
