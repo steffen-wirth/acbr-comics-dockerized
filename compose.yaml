@@ -5,6 +5,7 @@ services:
       args:
         ACBR_VERSION: ${ACBR_VERSION:-3.25.2}
     image: acbr-comic-book-reader:${ACBR_VERSION:-3.25.2}
+    pull_policy: build
     container_name: acbr
     restart: unless-stopped
     ports:
